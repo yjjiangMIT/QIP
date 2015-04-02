@@ -1,0 +1,2 @@
+figure;
+plot(spect.hfreq, real(exp(1i*PC0H)*exp(1i*PC1H*spect.hfreq/500).*spect.hspect));
