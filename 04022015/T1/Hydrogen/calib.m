@@ -1,0 +1,1 @@
+spect = NMRCalib(5,[0,0])
