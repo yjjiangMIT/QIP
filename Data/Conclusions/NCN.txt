@@ -1,0 +1,10 @@
+Near CNOT gate
+Use thermal as original state, ratio defined as "CNOT/Original"
+(1) C controls H, readout C
+ratioT = [1, -1]	ratioE = [0.6682, -0.4654]
+(2) C controls H, readout H
+ratioT = [1.25, 0.75]	ratioE = [1.3277, 0.7862]
+(3) H controls C, readout C
+ratioT = [5, -3]	ratioE = [3.4190, -1.6965]
+(4) H controls C, readout H
+ratioT = [1, 1]		ratioE = [1.0724, -0.9811]
