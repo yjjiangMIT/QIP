@@ -3,7 +3,7 @@ phaseFileName = 'phase_03312015';
 calibName = 'calib_03312015';
 calib = loadCalib(workspaceDir, calibName);
 
-folderDirRD = 'C:\Users\Yijun\Desktop\QIP\03312015\Data\RawData\T90_03312015';
+folderDirRD = 'C:\Users\Yijun\Desktop\QIP\03312015\Data\Raw data\T90_03312015';
 files = getFileNames(folderDirRD);
 
 peaks = [];
