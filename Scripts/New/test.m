@@ -1,5 +1,5 @@
-pvh = exp(1i*(PC0H+PC1H*thermal.hfreq/(thermal.hfreq(end)-thermal.hfreq(1)))*pi/180);
-thermalCorrected = thermal;
-thermalCorrected.hspect = thermal.hspect.*pvh;
+pvc = exp(1i*(PC0C+PC1C*ncn.cfreq/(ncn.cfreq(end)-ncn.cfreq(1)))*pi/180);
+ncnCorrected = ncn;
+ncnCorrected.cspect = ncn.cspect.*pvc;
 figure;
-plot(thermalCorrected.hfreq, real(thermalCorrected.hspect));
+plot(ncnCorrected.cfreq, imag(ncnCorrected.cspect));

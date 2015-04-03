@@ -2,9 +2,9 @@
 
 1 ze
 2 d1
-p2*1:f2 ph0
+p1*1:f1 ph0
 2.325581m
-p2*1:f2 ph3
+p1*1:f1 ph3
 p1*1:f1 ph0
 go=2 ph31
 wr #0
