@@ -1,7 +1,5 @@
-function test(i)
-
-workspaceDir = 'C:\Users\Yijun\Desktop\QIP\Data\Workspace';
-phaseFileName = 'phase_03312015';
-calibName = 'calib_03312015';
-calib = importdata([workspaceDir, '\', calibName, '.mat'], 'calib');
-calib
+pvh = exp(1i*(PC0H+PC1H*thermal.hfreq/(thermal.hfreq(end)-thermal.hfreq(1)))*pi/180);
+thermalCorrected = thermal;
+thermalCorrected.hspect = thermal.hspect.*pvh;
+figure;
+plot(thermalCorrected.hfreq, real(thermalCorrected.hspect));

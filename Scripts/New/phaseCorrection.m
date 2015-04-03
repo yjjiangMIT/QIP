@@ -4,7 +4,7 @@ function [ spectNew ] = phaseCorrection( folderDir, phaseFileName, spect )
 % phaseFileName does not need an extension .mat
 
 spectNew = spect;
-phase = importdata([folderDir, '\', phaseFileName, '.mat']);
+phase = importdata([folderDir, '/', phaseFileName, '.mat']);
 global calib PC0H PC1H PC0C PC1C
 PC0H = phase.PC0H;
 PC1H = phase.PC1H;
