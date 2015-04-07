@@ -1,6 +1,6 @@
 J = 215;
-qubitSeq = '1H2C';
-readoutNuc = 'H';
+qubitSeq = '1C2H';
+readoutNuc = 'C';
 
 if(strcmp(qubitSeq,'1C2H'))
     if(readoutNuc == 'C')

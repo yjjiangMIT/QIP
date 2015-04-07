@@ -1,0 +1,12 @@
+thermalCorrected = thermal;
+pvc = exp(1i*(PC0C+PC1C*thermal.cfreq/(thermal.cfreq(end)-thermal.cfreq(1)))*pi/180);
+thermalCorrected.cspect = thermal.cspect.*pvc;
+pf = evalin('base','calib.pf');
+iw = evalin('base','calib.iwidth');
+cpeak = do_integral(thermalCorrected.cfreq, thermalCorrected.cspect, pf, iw, thermalCorrected.csfo);
+thermalCorrected.cpeaks = cpeak(3:4);
+figure;
+plot(thermalCorrected.cfreq, imag(thermalCorrected.cspect));
+title('Thermal');
+xlabel('Frequency [Hz]');
+ylabel('Intensity [arb. units]');

@@ -1,0 +1,12 @@
+cnCorrected = cn;
+pvc = exp(1i*(PC0C+PC1C*cn.cfreq/(cn.cfreq(end)-cn.cfreq(1)))*pi/180);
+cnCorrected.cspect = cn.cspect.*pvc;
+pf = evalin('base','calib.pf');
+iw = evalin('base','calib.iwidth');
+cpeak = do_integral(cnCorrected.cfreq, cnCorrected.cspect, pf, iw, cnCorrected.csfo);
+cnCorrected.cpeaks = cpeak(3:4);
+figure;
+plot(cnCorrected.cfreq, real(cnCorrected.cspect));
+title('CNOT');
+xlabel('Frequency [Hz]');
+ylabel('Intensity [arb. units]');
