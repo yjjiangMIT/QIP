@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+% <<<<<<< HEAD
 %
 % File: qipgates.m
 % Date: 26-Feb-03
@@ -74,7 +74,7 @@ Udj4 = ry2' * ry1 * Uf4 * ry2 * ry1';
 Out1 = Udj1 * psi00;
 Out2 = Udj2 * psi00;
 Out3 = Udj3 * psi00;
-=======
+% =======
 %
 % File: qipgates.m
 % Date: 26-Feb-03
@@ -150,5 +150,5 @@ Udj4 = ry2' * ry1 * Uf4 * ry2 * ry1';
 Out1 = Udj1 * psi00;
 Out2 = Udj2 * psi00;
 Out3 = Udj3 * psi00;
->>>>>>> e036077d997bdc4dc4e29c2e83a04c067580d30c
+% >>>>>>> e036077d997bdc4dc4e29c2e83a04c067580d30c
 Out4 = Udj4 * psi00;
