@@ -1,44 +1,76 @@
 J = 215;
 qubitSeq = '1C2H';
 readoutNuc = 'H';
+i = 1;
 fileName = ['Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
 
 %U1:Identity
+pulses1 = [];
+phases1 = [];
+delays1 = [];
 
 %U2:Not
-pulses2 = [2 ; 0];
+pulses2 = [0 ; 2];
 phases2 = [0 ; 0];
-delay2 = [0 ; 0];
+delays2 = [0 ; 0];
 
 %U3:Cnot
 pulses3 = [1 1 1 0 0 0 ;0 0 0 1 1 1 ];
 phases3 = [2 1 0 0 0 0 ;0 0 0 0 1 3 ];
-delays = [0 0 0 0 1/2/J*1000 0 0];
+delays3 = [0 0 0 0 1/2/J*1000 0 0];
 
 %U4:Not-Cnot
-pulses4 = [pulse2, pulse3];
-phases4 = [pahse2, pulse3];
-delay4 = [delay2, delay3]
+pulses4 = [pulses2, pulses3];
+phases4 = [phases2, phases3];
+delays4 = [delays2, delays3]
 
 init = {[0; 0], [0 ; 2], [2 ; 0], [2 ; 2]};
 read = {[1 ; 0], [0 ; 1]}; %H or C
 
-pulsei = [0 1; 1 0];
-phasei = [0 1; 3 0];
-delayi = [0 0; 0 0];
+pulsesi = [0 1; 1 0];
+phasesi = [0 1; 3 0];
+delaysi = [0 0; 0 0];
 
-pulsef = [0 1; 1 0];
-phasef = [0 3; 1 0];
-delayf = [0 0; 0 0];
+pulsesf = [0 1; 1 0];
+phasesf = [0 3; 1 0];
+delaysf = [0 0; 0 0];
 
 %Deutsch-Jozsa ry2'*ry1*U_f*ry2*ry1'
 
-if f = 1
+if(f == 1)
     %for f1
-    pulse = [];
-    phase = [0 1; 3 0];
-    delay = [0 0; 0 0];
+    pulses = [pulsesi, pulse1, pulsesf];
+    phases = [phasesi, phases1, phasesf];
+    delays = [delaysi, delays1, delaysf];
+elseif(f == 2)
+    %for f1
+    pulses = [pulsesi, pulse2, pulsesf];
+    phases = [phasesi, phases2, phasesf];
+    delays = [delaysi, delays2, delaysf];
+elseif(f == 3)
+    %for f1
+    pulses = [pulsesi, pulse3, pulsesf];
+    phases = [phasesi, phases3, phasesf];
+    delays = [delaysi, delays3, delaysf];
+elseif(f == 4)
+    %for f1
+    pulses = [pulsesi, pulse4, pulsesf];
+    phases = [phasesi, phases4, phasesf];
+    delays = [delaysi, delays4, delaysf];
+end
 
+%for reading add read
+if(readoutNuc=='H')
+    pulses = [pulses, read{1}];
+    phases = [phases, [0;0]];
+    delays = [delays, [0;0];
+elseif(readoutNuc=='C')
+    pulses = [pulses, read{2}];
+    phases = [phases, [0;0]];
+    delays = [delays, [0;0];
+end
+%Initialize pure states
+pusles = 
 
 
 
@@ -77,7 +109,7 @@ elseif(strcmp(qubitSeq,'1H2C'))
     end
 end
 
-cn = NMRRunPulseProg([7.54 9.33], [0 0], pulses, phases, delays, tavgflag, nucflag);
+cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
 eval(['save ',fileName,' cn']);
 % thermal = NMRCalib(thermalTime, [0,0]);
 % 

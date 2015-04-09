@@ -1,6 +1,13 @@
 J = 215;
 qubitSeq = '1C2H';
 readoutNuc = 'C';
+%U1:Identity
+
+%U2:Not (180)
+
+%U3:Cnot
+%U4:Not Cnot
+
 
 if(strcmp(qubitSeq,'1C2H'))
     if(readoutNuc == 'C')
