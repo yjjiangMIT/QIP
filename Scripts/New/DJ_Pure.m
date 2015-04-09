@@ -2,6 +2,7 @@ J = 215;
 qubitSeq = '1C2H';
 readoutNuc = 'H';
 i = 1;
+f= 2;
 fileName = ['Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
 
 %U1:Identity
@@ -36,6 +37,10 @@ phasesf = [0 3; 1 0];
 delaysf = [0 0; 0 0];
 
 %Deutsch-Jozsa ry2'*ry1*U_f*ry2*ry1'
+%  pulses = [pulsesi, ['pulse',num2str(i)], pulsesf];
+%  phases = [phasesi, phases1, phasesf];
+%  delays = [delaysi, delays1, delaysf];
+
 
 if(f == 1)
     %for f1
@@ -60,57 +65,33 @@ elseif(f == 4)
 end
 
 %for reading add read
-if(readoutNuc=='H')
+if (readoutNuc=='H')
     pulses = [pulses, read{1}];
     phases = [phases, [0;0]];
     delays = [delays, [0;0];
-elseif(readoutNuc=='C')
+    nucflag = 1;
+    
+elseif (readoutNuc=='C')
     pulses = [pulses, read{2}];
     phases = [phases, [0;0]];
     delays = [delays, [0;0];
+    nucflag = 2;
 end
+    
 %Initialize pure states
-pusles = 
-
-
-
-
-if(strcmp(qubitSeq,'1C2H'))
-    if(readoutNuc == 'C')
-        pulses = [1 1 1 0 0 0 ;0 0 0 1 1 1 ];
-        phases = [2 1 0 0 0 0 ;0 0 0 0 1 3 ];
-        delays = [0 0 0 0 1/2/J*1000 0 0];
-        tavgflag = 0;
-        nucflag = 2;
-        thermalTime = 9.33;
-    elseif(readoutNuc == 'H')
-        pulses = [1 1 1 0 0 0 1;0 0 0 1 1 1 0];
-        phases = [2 1 0 0 0 0 0;0 0 0 0 1 3 0];
-        delays = [0 0 0 0 1/2/J*1000 0 0];
-        tavgflag = 0;
-        nucflag = 1;
-        thermalTime = 7.54;
-    end
-elseif(strcmp(qubitSeq,'1H2C'))
-    if(readoutNuc == 'C')
-        pulses = [0 0 0 1 1 1 0;1 1 1 0 0 0 1];
-        phases = [0 0 0 0 1 3 0;2 1 0 0 0 0 0];
-        delays = [0 0 0 0 1/2/J*1000 0 0];
-        tavgflag = 0;
-        nucflag = 2;
-        thermalTime = 9.33;
-    elseif(readoutNuc == 'H')
-        pulses = [0 0 0 1 1 1 1;1 1 1 0 0 0 0];
-        phases = [0 0 0 0 1 3 0;2 1 0 0 0 0 0];
-        delays = [0 0 0 0 1/2/J*1000 0 0];
-        tavgflag = 0;
-        nucflag = 1;
-        thermalTime = 7.54;
-    end
+if(tavgflag == 1)
+    pulses = [ini{i},pulses];
+    phases = [[0;0],phases];
+    delays = [[0,0],delays];
 end
 
 cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
 eval(['save ',fileName,' cn']);
+
+
+
+
+
 % thermal = NMRCalib(thermalTime, [0,0]);
 % 
 % % correct phase/ peaks
