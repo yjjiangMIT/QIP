@@ -1,9 +1,11 @@
 J = 215;
 qubitSeq = '1C2H';
-readoutNuc = 'H';
+readoutNuc = 'C';
+tavgflag = 1;
 i = 1;
-f= 2;
-fileName = ['Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
+f = 2;
+States = {'00', '01', '10', '11'};
+fileName = ['f', num2str(f), 'Pure', cell2mat(States(i)), 'Seq', qubitSeq, 'Readout', readoutNuc, '0409.mat'];
 
 %U1:Identity
 pulses1 = [];
@@ -13,28 +15,28 @@ delays1 = [];
 %U2:Not
 pulses2 = [0 ; 2];
 phases2 = [0 ; 0];
-delays2 = [0 ; 0];
+delays2 = [0];
 
 %U3:Cnot
 pulses3 = [1 1 1 0 0 0 ;0 0 0 1 1 1 ];
 phases3 = [2 1 0 0 0 0 ;0 0 0 0 1 3 ];
-delays3 = [0 0 0 0 1/2/J*1000 0 0];
+delays3 = [0 0 0 0 1/2/J*1000 0];
 
 %U4:Not-Cnot
 pulses4 = [pulses2, pulses3];
 phases4 = [phases2, phases3];
-delays4 = [delays2, delays3]
+delays4 = [delays2, delays3];
 
 init = {[0; 0], [0 ; 2], [2 ; 0], [2 ; 2]};
-read = {[1 ; 0], [0 ; 1]}; %H or C
+read = {[1 ; 0], [0 ; 1]}; % H or C
 
 pulsesi = [0 1; 1 0];
 phasesi = [0 1; 3 0];
-delaysi = [0 0; 0 0];
+delaysi = [0 0];
 
 pulsesf = [0 1; 1 0];
 phasesf = [0 3; 1 0];
-delaysf = [0 0; 0 0];
+delaysf = [0 0];
 
 %Deutsch-Jozsa ry2'*ry1*U_f*ry2*ry1'
 %  pulses = [pulsesi, ['pulse',num2str(i)], pulsesf];
@@ -44,22 +46,22 @@ delaysf = [0 0; 0 0];
 
 if(f == 1)
     %for f1
-    pulses = [pulsesi, pulse1, pulsesf];
+    pulses = [pulsesi, pulses1, pulsesf];
     phases = [phasesi, phases1, phasesf];
     delays = [delaysi, delays1, delaysf];
 elseif(f == 2)
-    %for f1
-    pulses = [pulsesi, pulse2, pulsesf];
+    %for f2
+    pulses = [pulsesi, pulses2, pulsesf];
     phases = [phasesi, phases2, phasesf];
     delays = [delaysi, delays2, delaysf];
 elseif(f == 3)
-    %for f1
-    pulses = [pulsesi, pulse3, pulsesf];
+    %for f3
+    pulses = [pulsesi, pulses3, pulsesf];
     phases = [phasesi, phases3, phasesf];
     delays = [delaysi, delays3, delaysf];
 elseif(f == 4)
-    %for f1
-    pulses = [pulsesi, pulse4, pulsesf];
+    %for f4
+    pulses = [pulsesi, pulses4, pulsesf];
     phases = [phasesi, phases4, phasesf];
     delays = [delaysi, delays4, delaysf];
 end
@@ -68,21 +70,20 @@ end
 if (readoutNuc=='H')
     pulses = [pulses, read{1}];
     phases = [phases, [0;0]];
-    delays = [delays, [0;0];
+    delays = [delays, [0]];
     nucflag = 1;
-    
 elseif (readoutNuc=='C')
     pulses = [pulses, read{2}];
     phases = [phases, [0;0]];
-    delays = [delays, [0;0];
+    delays = [delays, [0]];
     nucflag = 2;
 end
     
 %Initialize pure states
 if(tavgflag == 1)
-    pulses = [ini{i},pulses];
+    pulses = [init{i},pulses];
     phases = [[0;0],phases];
-    delays = [[0,0],delays];
+    delays = [[0],delays];
 end
 
 cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
