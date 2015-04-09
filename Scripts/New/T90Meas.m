@@ -1,5 +1,5 @@
 peaks = [];
-pwtab = linspace(1,15,15);
+pwtab = linspace(6,11,10);
 
 for pw = pwtab
     i = find(pwtab==pw);

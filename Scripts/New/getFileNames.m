@@ -7,5 +7,5 @@ dirOutput = dir(fullfile(fileFolder, '*.mat'));
 fileNames = {dirOutput.name};
 files = cell(1, length(fileNames));
 for i = 1 : length(fileNames)
-    files(i) = {[folderDir, '\', cell2mat(fileNames(i))]};
+    files(i) = {[cell2mat(fileNames(i))]};
 end

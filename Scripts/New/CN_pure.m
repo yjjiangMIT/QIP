@@ -1,100 +1,89 @@
+% Performs CNOT gate on the four pure states |00>, |01>, |10> and |11>.
+% qubitSeq: which qubit is used to control which.
+% readoutNuc: which qubit is the readout.
+% T90 for carbon: 9.2403 us. T90 for hydrogen: 7.496 us.
+% Output struct into files.
+% Example file name: pure00Seq1C2HReadoutH0408.mat.
+
 J = 215;
 qubitSeq = '1C2H';
 readoutNuc = 'H';
-States = ['00','01','10','11'];
-% pureState = '11';
-% fileName = ['pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
+States = {'00', '01', '10', '11'};
+date = '0409';
+load(['T90Rough_', date, '.mat']);
 
-for pureState = States
+for i = 1 : 4 
+    pureState = cell2mat(States(i));
 
     if(strcmp(qubitSeq,'1C2H'))
         if(readoutNuc == 'C')
             if(strcmp(pureState, '00'))
-                pulses = [1 1 1 0 0 0 0; 
-                    0 0 0 1 1 1 1];
-                phases = [2 1 0 0 0 0 0; 
-                    0 0 0 0 1 3 0];
+                pulses = [1 1 1 0 0 0 0; 0 0 0 1 1 1 1];
+                phases = [2 1 0 0 0 0 0; 0 0 0 0 1 3 0];
                 delays = [0 0 0 0 1/2/J*1000 0 0];
                 tavgflag = 1;
                 nucflag = 2;
-                thermalTime = 9.33;
+                thermalTime = T90C;
             elseif(strcmp(pureState, '01'))
                 pulses = [0 0 1 1 1 0 0 0 0; 1 1 0 0 0 1 1 1 1];
                 phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                 delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                 tavgflag = 1;
                 nucflag = 2;
-                thermalTime = 9.33;
+                thermalTime = T90C;
             elseif(strcmp(pureState, '10'))
                 pulses = [1 1 1 1 1 0 0 0 0; 0 0 0 0 0 1 1 1 1];
                 phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                 delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                 tavgflag = 1;
                 nucflag = 2;
-                thermalTime = 9.33;
+                thermalTime = T90C;
             elseif(strcmp(pureState, '11'))
                 pulses = [1 1 1 1 1 0 0 0 0; 1 1 0 0 0 1 1 1 1];
                 phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                 delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                 tavgflag = 1;
                 nucflag = 2;
-                thermalTime = 9.33;
+                thermalTime = T90C;
             end
         elseif(readoutNuc == 'H')
-            if(readoutNuc == 'C')
-                if(strcmp(purestate, '00'))
+                if(strcmp(pureState, '00'))
                     pulses = [1 1 1 0 0 0 1; 0 0 0 1 1 1 0];
                     phases = [2 1 0 0 0 0 0; 0 0 0 0 1 3 0];
                     delays = [0 0 0 0 1/2/J*1000 0 0];
                     tavgflag = 1;
                     nucflag = 1;
-                    thermalTime = 9.33;
-                elseif(strcmp(purestate, '01'))
+                    thermalTime = T90H;
+                elseif(strcmp(pureState, '01'))
                     pulses = [0 0 1 1 1 0 0 0 1; 1 1 0 0 0 1 1 1 0];
                     phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                     delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                     tavgflag = 1;
                     nucflag = 1;
-                    thermalTime = 9.33;
-                elseif(strcmp(purestate, '10'))
+                    thermalTime = T90H;
+                elseif(strcmp(pureState, '10'))
                     pulses = [1 1 1 1 1 0 0 0 1; 0 0 0 0 0 1 1 1 0];
                     phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                     delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                     tavgflag = 1;
                     nucflag = 1;
-                    thermalTime = 9.33;
-                elseif(strcmp(purestate, '11'))
+                    thermalTime = T90H;
+                elseif(strcmp(pureState, '11'))
                     pulses = [1 1 1 1 1 0 0 0 1; 1 1 0 0 0 1 1 1 0];
                     phases = [0 0 2 1 0 0 0 0 0; 0 0 0 0 0 0 1 3 0];
                     delays = [0 0 0 0 0 0 1/2/J*1000 0 0];
                     tavgflag = 1;
                     nucflag = 1;
-                    thermalTime = 9.33;
-                end
+                    thermalTime = T90H;
             end
-        end
-    elseif(strcmp(qubitSeq,'1H2C'))
-        if(readoutNuc == 'C')
-            pulses = [0 0 0 1 1 1 0;1 1 1 0 0 0 1];
-            phases = [0 0 0 0 1 3 0;2 1 0 0 0 0 0];
-            delays = [0 0 0 0 1/2/J*1000 0 0];
-            tavgflag = 0;
-            nucflag = 2;
-            thermalTime = 9.33;
-        elseif(readoutNuc == 'H')
-            pulses = [0 0 0 1 1 1 1;1 1 1 0 0 0 0];
-            phases = [0 0 0 0 1 3 0;2 1 0 0 0 0 0];
-            delays = [0 0 0 0 1/2/J*1000 0 0];
-            tavgflag = 0;
-            nucflag = 1;
-            thermalTime = 7.54;
         end
     end
 
-    cn = NMRRunPulseProg([7.54 9.33], [0 0], pulses, phases, delays, tavgflag, nucflag);
-    fileName = ['pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
+    cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
+    fileName = ['pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
     eval(['save ',fileName,' cn']);
 end
+
 % thermal = NMRCalib(thermalTime, [0,0]);
 % 
 % % correct phase/ peaks

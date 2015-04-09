@@ -8,6 +8,10 @@ p2*1:f2 ph3
 p1*1:f1 ph0
 2.326000m
 p1*1:f1 ph3
+p1*1:f1 ph0
+p2*1:f2 ph0
+p1*1:f1 ph0
+p2*1:f2 ph0
 p1*1:f1 ph2
 p1*1:f1 ph1
 p1*1:f1 ph0

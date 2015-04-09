@@ -3,50 +3,10 @@ qubitSeq = '1C2H';
 readoutNuc = 'H';
 fileName = ['Seq', qubitSeq, 'Readout', readoutNuc, '0407.mat'];
 
-%U1:Identity
-
-%U2:Not
-pulses2 = [2 ; 0];
-phases2 = [0 ; 0];
-delay2 = [0 ; 0];
-
-%U3:Cnot
-pulses3 = [1 1 1 0 0 0 ;0 0 0 1 1 1 ];
-phases3 = [2 1 0 0 0 0 ;0 0 0 0 1 3 ];
-delays = [0 0 0 0 1/2/J*1000 0 0];
-
-%U4:Not-Cnot
-pulses4 = [pulse2, pulse3];
-phases4 = [pahse2, pulse3];
-delay4 = [delay2, delay3]
-
-init = {[0; 0], [0 ; 2], [2 ; 0], [2 ; 2]};
-read = {[1 ; 0], [0 ; 1]}; %H or C
-
-pulsei = [0 1; 1 0];
-phasei = [0 1; 3 0];
-delayi = [0 0; 0 0];
-
-pulsef = [0 1; 1 0];
-phasef = [0 3; 1 0];
-delayf = [0 0; 0 0];
-
-%Deutsch-Jozsa ry2'*ry1*U_f*ry2*ry1'
-
-if f = 1
-    %for f1
-    pulse = [];
-    phase = [0 1; 3 0];
-    delay = [0 0; 0 0];
-
-
-
-
-
 if(strcmp(qubitSeq,'1C2H'))
     if(readoutNuc == 'C')
-        pulses = [1 1 1 0 0 0 ;0 0 0 1 1 1 ];
-        phases = [2 1 0 0 0 0 ;0 0 0 0 1 3 ];
+        pulses = [1 1 1 0 0 0 0;0 0 0 1 1 1 1];
+        phases = [2 1 0 0 0 0 0;0 0 0 0 1 3 0];
         delays = [0 0 0 0 1/2/J*1000 0 0];
         tavgflag = 0;
         nucflag = 2;
