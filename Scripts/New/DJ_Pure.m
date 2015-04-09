@@ -3,7 +3,7 @@ qubitSeq = '1C2H';
 readoutNuc = 'C';
 tavgflag = 1;
 i = 1;
-f = 2;
+f = 3;
 States = {'00', '01', '10', '11'};
 fileName = ['f', num2str(f), 'Pure', cell2mat(States(i)), 'Seq', qubitSeq, 'Readout', readoutNuc, '0409.mat'];
 
