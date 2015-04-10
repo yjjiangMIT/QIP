@@ -1,24 +1,13 @@
-<<<<<<< HEAD
-=======
-% phaseFileName = 'phase0409';
-% addpath('/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409')
-% rawDataDir = '/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409';
-
->>>>>>> 5832d4685ea242c7a5071b8bd673fb709a9603df
 rawDataDir = 'T90RawData0410';
 files = getFileNames(rawDataDir);
 number = length(files);
 
 peaks = [];
-<<<<<<< HEAD
 pwtab = 1 : number;
 
 peakFindingMethod = '1'; % '1' = Peak integrals; '2' = Abs peak integrals; '3' = Peak heights.
 whichPeak = '2'; % '1' = First peak; '2' = Second peak; '3' = Average of both peaks.
 fitMethod = 'expsin';
-=======
-pwtab = 1:50;
->>>>>>> 5832d4685ea242c7a5071b8bd673fb709a9603df
 
 for i = 1 : number
     
@@ -64,7 +53,6 @@ peakH2 = real(peaks(:,2));
 peakC1 = real(peaks(:,3));
 peakC2 = real(peaks(:,4));
 
-<<<<<<< HEAD
 if(whichPeak == '1')
     peakH = peakH1;
     peakC = peakC1;
@@ -76,14 +64,11 @@ elseif(whichPeak == '3')
     peakC = (peakC1 + peakC2)/2;
 end
 
-=======
->>>>>>> 5832d4685ea242c7a5071b8bd673fb709a9603df
 peakHFit = peakH;
 timeHFit = pwtab';
 peakCFit = peakC;
 timeCFit = pwtab';
 
-<<<<<<< HEAD
 if(strcmp(fitMethod, 'para'))
     % Parabola
     coeffH = polyfit(timeHFit, peakHFit, 2);
@@ -137,15 +122,6 @@ elseif(strcmp(fitMethod, 'expsin'))
     peakCCont = fx(bC, timeCCont);
     T90C = pi/2/bC(3);
 end
-=======
-%Parabola
-coeffH = polyfit(timeHFit, peakHFit, 2);
-coeffC = polyfit(timeCFit, peakCFit, 2);
-T90H = -coeffH(2)/2/coeffH(1);
-T90C = -coeffC(2)/2/coeffC(1);
-
-pwtabCont = 1:0.01:50;
->>>>>>> 5832d4685ea242c7a5071b8bd673fb709a9603df
 
 % Plot
 figure;
