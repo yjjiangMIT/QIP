@@ -1,4 +1,4 @@
-% Does phase corrections for hydrogen, then redo peak integrals
+% Does phase corrections for hydrogen, then redo peak integrals.
 
 % Phase corrections
 pvh = exp(1i*(PC0H+PC1H*spectTemp.hfreq/(spectTemp.hfreq(end)-spectTemp.hfreq(1)))*pi/180);

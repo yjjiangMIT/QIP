@@ -1,10 +1,10 @@
 % spectFileName = 'time754_0407';
 % load(['CalibData\', spectFileName, '.mat']);
 
-phaseFileName = 'phase0407';
+phaseFileName = 'phase0410';
 load(['PhaseData\', phaseFileName, '.mat']);
 load('calibStruct.mat');
-plotFlag = 0; % 1 means to plot, 0 means not to plot.
+plotFlag = 1; % 1 means to plot, 0 means not to plot.
 
 spectTemp = spect;
 PhaseCorrectionH;

@@ -4,7 +4,7 @@
 phaseFileName = 'phase0407';
 load(['PhaseData\', phaseFileName, '.mat']);
 load('calibStruct.mat');
-plotFlag = 0; % 1 means to plot, 0 means not to plot.
+plotFlag = 1; % 1 means to plot, 0 means not to plot.
 
 spectTemp = spect;
 PhaseCorrectionC;

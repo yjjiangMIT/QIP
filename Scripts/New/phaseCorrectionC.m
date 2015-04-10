@@ -1,4 +1,4 @@
-% Does phase corrections for carbon, then redo peak integrals
+% Does phase corrections for carbon, then redo peak integrals.
 
 % Phase corrections
 pvc = exp(1i*(PC0C+PC1C*spectTemp.cfreq/(spectTemp.cfreq(end)-spectTemp.cfreq(1)))*pi/180);
