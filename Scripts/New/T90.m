@@ -2,17 +2,18 @@
 % addpath('/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409')
 % rawDataDir = '/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409';
 
-rawDataDir = 'T90RawData0409';
+rawDataDir = 'T90RawData0410';
 files = getFileNames(rawDataDir);
 number = length(files);
 
 peaks = [];
-pwtab = linspace(6,12,10);
+pwtab = 1:50;
 
 for i = 1 : number
     
     % Read data from folder
-    load(cell2mat([rawDataDir, '\', files(i)]));
+    load(cell2mat([rawDataDir, '/', files(i)])); % Ubuntu
+    % load(cell2mat([rawDataDir, '\', files(i)])); % Windows
 
     % ---------- 1st way: use peak integrals ----------
     % Phase correction
@@ -42,16 +43,6 @@ peakH2 = real(peaks(:,2));
 peakC1 = real(peaks(:,3));
 peakC2 = real(peaks(:,4));
 
-% peakHFit = peakH(25:65);
-% timeHFit = pwtab(25:65)';
-% peakCFit = peakC(40:80);
-% timeCFit = pwtab(40:80)';
-
-% peakHFit = peakH(4:11);
-% timeHFit = pwtab(4:11)';
-% peakCFit = peakC(5:13);
-% timeCFit = pwtab(5:13)';
-
 peakHFit = peakH;
 timeHFit = pwtab';
 peakCFit = peakC;
@@ -63,7 +54,7 @@ coeffC = polyfit(timeCFit, peakCFit, 2);
 T90H = -coeffH(2)/2/coeffH(1);
 T90C = -coeffC(2)/2/coeffC(1);
 
-pwtabCont = 6 : 0.01 : 12;
+pwtabCont = 1:0.01:50;
 
 figure;
 hold on;
