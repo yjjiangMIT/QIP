@@ -1,35 +1,41 @@
-firstRunMe;
-workspaceDir = '/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New';
-phaseFileName = 'phase0409';
-% calibName = 'calib_04032015';
-% calib = importdata([workspaceDir, '\', calibName, '.mat']);
-addpath('/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/PulseWidth0409')
-rawDataDir = '/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/PulseWidth0409';
+% phaseFileName = 'phase0409';
+% addpath('/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409')
+% rawDataDir = '/afs/athena.mit.edu/user/k/a/kakkarav/Desktop/QIP/Scripts/New/T90RawData0409';
+
+rawDataDir = 'T90RawData0409';
 files = getFileNames(rawDataDir);
 number = length(files);
 
 peaks = [];
 pwtab = linspace(6,12,10);
 
-for pw = pwtab
-    i = find(pwtab==pw);
+for i = 1 : number
     
     % Read data from folder
-    load(cell2mat(files(i)), 'spect');
-    
+    load(cell2mat([rawDataDir, '\', files(i)]));
+
+    % ---------- 1st way: use peak integrals ----------
     % Phase correction
-    spect = phaseCorrection(workspaceDir, phaseFileName, spect);
+    spectTemp = spect;
+    PhaseCorrectionC;
+    PhaseCorrectionH;
+    spectCorr = spectTemp;
+    clear spectTemp;
     
     % Find peaks
-    peaks = [peaks; spect.hpeaks, spect.cpeaks];
+    peaks = [peaks; spectCorr.hpeaks, spectCorr.cpeaks];
+
+    % ---------- 2nd way: use peak heights ----------
+%     LorentzianFitH; % Comment out the first two lines in this function!
+%     close(figure(gcf));
+%     LorentzianFitC; % Comment out the first two lines in this function!
+%     close(figure(gcf));
+%     peaks = [peaks; spectCorrH.hheight, spectCorrC.cheight];
+    
 end
 
 peakH = (real(peaks(:,1))+real(peaks(:,2)))/2;
 peakC = (real(peaks(:,3))+real(peaks(:,4)))/2;
-% peakC = (real(peaks(:,4)));
-
-% peakH = real(peaks(:,2));
-% peakC = real(peaks(:,4));
 
 peakH1 = real(peaks(:,1));
 peakH2 = real(peaks(:,2));
@@ -56,12 +62,6 @@ coeffH = polyfit(timeHFit, peakHFit, 2);
 coeffC = polyfit(timeCFit, peakCFit, 2);
 T90H = -coeffH(2)/2/coeffH(1);
 T90C = -coeffC(2)/2/coeffC(1);
-
-%Quartic model
-% coeffH1 = polyfit(timeHFit, peakHFit, 2);
-% coeffC2 = polyfit(timeCFit, peakCFit, 2);
-% T90H = -coeffH(2)/2/coeffH(1)
-% T90C = -coeffC(2)/2/coeffC(1)
 
 pwtabCont = 6 : 0.01 : 12;
 
