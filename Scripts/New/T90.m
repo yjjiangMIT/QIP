@@ -1,13 +1,21 @@
-rawDataDir = 'T90RawData0410';
-files = getFileNames(rawDataDir);
-number = length(files);
-
-peaks = [];
-pwtab = 1 : number;
+phaseFile = 'phase0410.mat';
+rawDataDir = 'T90RawData0410New';
+startWidth = 6;
+endWidth = 15;
 
 peakFindingMethod = '1'; % '1' = Peak integrals; '2' = Abs peak integrals; '3' = Peak heights.
-whichPeak = '2'; % '1' = First peak; '2' = Second peak; '3' = Average of both peaks.
-fitMethod = 'expsin';
+whichPeak = '3'; % '1' = First peak; '2' = Second peak; '3' = Average of both peaks.
+fitMethod = 'para'; % 'expsin' = Exponentially damping sinusoid, 'para' = Parabola.
+
+% ---------- No need to edit the following for different data sets ----------
+files = getFileNames(rawDataDir);
+number = length(files);
+load('calibStruct.mat');
+phaseDir = 'PhaseData';
+load([phaseDir, '\', phaseFile]);
+
+peaks = [];
+pwtab = linspace(startWidth, endWidth, number);
 
 for i = 1 : number
     
@@ -78,8 +86,8 @@ if(strcmp(fitMethod, 'para'))
     
     timeHCont = timeHFit(1) : 0.01 : timeHFit(end);
     timeCCont = timeCFit(1) : 0.01 : timeCFit(end);
-    peakHCont = polyval(coeffH, pwtabCont);
-    peakCCont = polyval(coeffC, pwtabCont);
+    peakHCont = polyval(coeffH, timeHCont);
+    peakCCont = polyval(coeffC, timeCCont);
 elseif(strcmp(fitMethod, 'expsin'))
     % Exponentially damping sine
     % fx = @(b,x) b(1) .* exp(-b(2).*x) .* sin(b(3).*x) + b(4);

@@ -5,7 +5,7 @@
 % Output structs into files.
 % Example file name: CNOT_Pure00Seq1C2HReadoutH0408.mat.
 
-J = 215;
+J = 214.94;
 qubitSeqArray = {'1C2H'};
 readoutNucArray = 'CH';
 States = {'00', '01', '10', '11'};

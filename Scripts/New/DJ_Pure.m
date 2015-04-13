@@ -1,23 +1,30 @@
+% Performs Deutsch-Jotza algorithm.
+% Loops over all four functions and two readout nuclei.
+% stateIndex: which input state is used.
+% functionIndex: which function is used.
+% readoutNuc: which qubit is the readout.
+% Output structs into files.
+% Example file name: f1Pure00ReadoutH0410.mat.
+
 J = 214.94;
-qubitSeq = '1C2H';
 tavgflag = 1;
-i = 1;
-States = {'00', '01', '10', '11'};
 date = '0409';
-fArray = 1 : 4;
-readoutNucArray = 'CH';
+States = {'00', '01', '10', '11'};
+stateIndex = 1;
+load(['T90Data/T90Rough_', date, '.mat']);
 
 % Uf1: Identity
 pulses1 = [];
 phases1 = [];
 delays1 = [];
 
-% Uf2: NOT(y)
+% Uf2: NOT(y), y is the first qubit
 pulses2 = [0; 2];
 phases2 = [0; 0];
 delays2 = 0;
 
-% Uf3: CNOT(x,y)
+% Uf3: CNOT(x,y), use x (the second qubit) to control y (the first qubit)
+% ry1'*tau*ry1*rx1*rx2*ry2*rx2'
 pulses3 = [1 1 1 0 0 0; 0 0 0 1 1 1];
 phases3 = [2 1 0 0 0 0; 0 0 0 0 1 3];
 delays3 = [0 0 0 0 1/2/J*1000 0];
@@ -43,24 +50,24 @@ delaysf = [0 0];
 % phases = [phasesi, phases1, phasesf];
 % delays = [delaysi, delays1, delaysf];
 
-for f = fArray
-    for readoutNuc = readoutNucArray
-        if(f == 1)
+for functionIndex = 1 : 4
+    for readoutNuc = 'CH'
+        if(functionIndex == 1)
             % For function f1
             pulses = [pulsesi, pulses1, pulsesf];
             phases = [phasesi, phases1, phasesf];
             delays = [delaysi, delays1, delaysf];
-        elseif(f == 2)
+        elseif(functionIndex == 2)
             % For function f2
             pulses = [pulsesi, pulses2, pulsesf];
             phases = [phasesi, phases2, phasesf];
             delays = [delaysi, delays2, delaysf];
-        elseif(f == 3)
+        elseif(functionIndex == 3)
             % For function f3
             pulses = [pulsesi, pulses3, pulsesf];
             phases = [phasesi, phases3, phasesf];
             delays = [delaysi, delays3, delaysf];
-        elseif(f == 4)
+        elseif(functionIndex == 4)
             % For function f4
             pulses = [pulsesi, pulses4, pulsesf];
             phases = [phasesi, phases4, phasesf];
@@ -82,13 +89,13 @@ for f = fArray
         
         % Initialize pure states
         if(tavgflag == 1)
-            pulses = [init{i}, pulses];
+            pulses = [init{stateIndex}, pulses];
             phases = [[0;0], phases];
             delays = [0, delays];
         end
         
         dj = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-        fileName = ['f', num2str(f), 'Pure', cell2mat(States(i)), 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
+        fileName = ['f', num2str(functionIndex), 'Pure', cell2mat(States(stateIndex)), 'Readout', readoutNuc, date, '.mat'];
         eval(['save ',fileName,' dj']);
     end
 end

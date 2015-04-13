@@ -5,7 +5,7 @@
 % Output structs into files.
 % Example file name: NCN_ThermalSeq1C2HReadoutH0408.mat.
 
-J = 215;
+J = 214.94;
 qubitSeqArray = {'1C2H', '1H2C'};
 readoutNucArray = 'CH';
 data = '0409';

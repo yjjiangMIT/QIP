@@ -5,10 +5,10 @@
 % Output structs into files.
 % Example file name: CNOT_ThermalSeq1C2HReadoutH0408.mat.
 
-J = 215;
+J = 214.94;
 qubitSeqArray = {'1C2H', '1H2C'};
 readoutNucArray = 'CH';
-data = '0409';
+date = '0409';
 load(['T90Data/T90Rough_', date, '.mat']);
 
 for i = 1 : length(qubitSeqArray)
