@@ -8,10 +8,10 @@
 
 J = 214.94;
 tavgflag = 1;
-date = '0409';
 States = {'00', '01', '10', '11'};
 stateIndex = 1;
-load(['T90Data/T90Rough_', date, '.mat']);
+date = '0413';
+load(['T90Data/T90Expsin_', date, '.mat']);
 
 % Uf1: Identity
 pulses1 = [];
@@ -95,7 +95,7 @@ for functionIndex = 1 : 4
         end
         
         dj = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-        fileName = ['f', num2str(functionIndex), 'Pure', cell2mat(States(stateIndex)), 'Readout', readoutNuc, date, '.mat'];
+        fileName = ['expsinF', num2str(functionIndex), 'Pure', cell2mat(States(stateIndex)), 'Readout', readoutNuc, date, '.mat'];
         eval(['save ',fileName,' dj']);
     end
 end

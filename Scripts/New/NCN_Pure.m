@@ -9,14 +9,14 @@ J = 214.94;
 qubitSeqArray = {'1C2H'};
 readoutNucArray = 'CH';
 States = {'00', '01', '10', '11'};
-date = '0409';
-load(['T90Data/T90Rough_', date, '.mat']);
+date = '0413';
+load(['T90Data/T90Expsin_', date, '.mat']);
 
-for i = 1 : lengthof(States)
+for i = 1 : length(States)
     pureState = cell2mat(States(i));
-    for j = 1 : lengthof(qubitSeqArray)
+    for j = 1 : length(qubitSeqArray)
         qubitSeq = cell2mat(qubitSeqArray(j));
-        for k = 1 : lengthof(readoutNucArray)
+        for k = 1 : length(readoutNucArray)
             readoutNuc = readoutNucArray(k);
             if(strcmp(qubitSeq, '1C2H'))
                 if(readoutNuc == 'C')
@@ -144,8 +144,8 @@ for i = 1 : lengthof(States)
                 end
             end
             ncn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-            fileName = ['NCN_Pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
-            eval(['save ',fileName,' cn']);
+            fileName = ['expsinNCN_Pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
+            eval(['save ',fileName,' ncn']);
         end
     end
 end

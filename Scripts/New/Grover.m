@@ -7,13 +7,18 @@
 
 numberG = 1; % How many times is G performed
 J = 214.94;
-date = '0409';
-load(['T90Data/T90Rough_', date, '.mat']);
+date = '0413';
+load(['T90Data/T90Expsin_', date, '.mat']);
 
 tavgflag = 1;
 
 for functionIndex = 0 : 3
     for readoutNuc = 'CH'
+        if(readoutNuc == 'C')
+            nucflag = 2;
+        elseif(readoutNuc == 'H')
+            nucflag = 1;
+        end
         if(functionIndex == 0)
             % G0 = rx1*ry1*rx2*ry2*tau*rx1'*ry1'*rx2'*ry2'*tau
             pulsesG = [0 1 1 0 0 1 1 0 0; 0 0 0 1 1 0 0 1 1];
@@ -66,7 +71,7 @@ for functionIndex = 0 : 3
         
         % Perform Grover algorithm
         gr = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-        fileName = ['g', num2str(functionIndex), 'For', num2str(numberG), 'TimesReadout', readoutNuc, date, '.mat'];
+        fileName = ['expsinG', num2str(functionIndex), 'For', num2str(numberG), 'TimesReadout', readoutNuc, date, '.mat'];
         eval(['save ',fileName,' gr']);
     end
 end
