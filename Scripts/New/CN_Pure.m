@@ -10,7 +10,7 @@ qubitSeqArray = {'1C2H'};
 readoutNucArray = 'CH';
 States = {'00', '01', '10', '11'};
 date = '0413';
-load(['T90Data/T90Expsin_', date, '.mat']);
+load(['T90Data/T90Para_', date, '.mat']);
 
 for i = 1 : length(States)
     pureState = cell2mat(States(i));
@@ -144,7 +144,7 @@ for i = 1 : length(States)
                 end
             end
             cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-            fileName = ['expsinCNOT_Pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
+            fileName = ['paraCNOT_Pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
             eval(['save ',fileName,' cn']);
         end
     end
