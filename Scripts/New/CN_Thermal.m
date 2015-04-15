@@ -8,8 +8,8 @@
 J = 214.94;
 qubitSeqArray = {'1C2H', '1H2C'};
 readoutNucArray = 'CH';
-date = '0409';
-load(['T90Data/T90Rough_', date, '.mat']);
+date = '0414';
+% load(['T90Data/T90Rough_', date, '.mat']);
 
 for i = 1 : length(qubitSeqArray)
     qubitSeq = cell2mat(qubitSeqArray(i));
@@ -50,6 +50,6 @@ for i = 1 : length(qubitSeqArray)
         end
         cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
         fileName = ['CNOT_ThermalSeq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
-        eval(['save ',fileName,' cn']);
+        eval(['save ', fileName, ' cn']);
     end
 end

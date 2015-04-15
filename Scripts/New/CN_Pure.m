@@ -145,7 +145,7 @@ for i = 1 : length(States)
             end
             cn = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
             fileName = ['paraCNOT_Pure', pureState, 'Seq', qubitSeq, 'Readout', readoutNuc, date, '.mat'];
-            eval(['save ',fileName,' cn']);
+            eval(['save ', fileName, ' cn']);
         end
     end
 end
