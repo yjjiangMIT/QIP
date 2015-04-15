@@ -5,16 +5,12 @@
 % Output structs into files.
 % Example file name: g0For2TimesReadoutH0410.mat.
 
-
 J = 214.94;
-date = '0413';
-load(['T90Data/T90Para_', date, '.mat']);
+date = '0414';
+% load(['T90Data/T90Para_', date, '.mat']);
 tavgflag = 1;
 
-literation = ;
-
-for round = 0 : iteration
-    numberG = round; % How many times is G performed    
+for numberG = 1 : 20
     for functionIndex = 0 : 3
         for readoutNuc = 'CH'
             if(readoutNuc == 'C')
@@ -49,10 +45,10 @@ for round = 0 : iteration
             pulsesH = [1 2 0 0; 0 0 1 2];
             phasesH = [1 0 0 0; 0 0 1 0];
             delaysH = [0 0 0 0];
-
+            
             % Readout pulse
             phasesR = [0; 0];
-            delaysR = 0;     
+            delaysR = 0;
             if(readoutNuc == 'H')
                 pulsesR = [1; 0];
             elseif(readoutNuc == 'C')
@@ -74,8 +70,8 @@ for round = 0 : iteration
 
             % Perform Grover algorithm
             gr = NMRRunPulseProg([T90H T90C], [0 0], pulses, phases, delays, tavgflag, nucflag);
-            fileName = ['paraG', num2str(functionIndex), 'For', num2str(numberG), 'TimesReadout', readoutNuc, date, '.mat'];
-            eval(['save ',fileName,' gr']);
+            fileName = ['expsinG', num2str(functionIndex), 'For', num2str(numberG), 'TimesReadout', readoutNuc, date, '.mat'];
+            eval(['save ', fileName, ' gr']);
         end
     end
 end

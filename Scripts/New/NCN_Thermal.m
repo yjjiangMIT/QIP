@@ -8,8 +8,8 @@
 J = 214.94;
 qubitSeqArray = {'1C2H', '1H2C'};
 readoutNucArray = 'CH';
-data = '0409';
-load(['T90Data/T90Rough_', date, '.mat']);
+data = '0414';
+% load(['T90Data/T90Rough_', date, '.mat']);
 
 for i = 1 : length(qubitSeqArray)
     qubitSeq = cell2mat(qubitSeqArray(i));
