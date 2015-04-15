@@ -1,5 +1,5 @@
 phaseFile = 'phase0410.mat';
-rawDataDir = 'T90RawData0410New';
+rawDataDir = '/Users/kampholakkaravarawong/Dropbox (MIT)/QIP (1)/Scripts/New/T90RawData0410';
 startWidth = 6;
 endWidth = 15;
 

@@ -3,9 +3,9 @@ peaks = [];
 pwtab = linspace(1,8000,5);
 
 dtab = linspace(1,8000,5);
-pulses=[0 0;2 1]
-phases=[0 0;0 0]
-nucflag = 0
+pulses = [0 0; 2 1];
+phases = [0 0; 0 0];
+nucflag = 0;
 
 for delay = dtab
     sd = NMRRunPulseProg([7.5051 9.3434],[0 0],pulses,phases,[delay 0],0,nucflag);
